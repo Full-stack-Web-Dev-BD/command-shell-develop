@@ -32,10 +32,8 @@ export default function Home() {
         value: terminalInput,
       });
       setTerminalLineData(existingLineData);
-      console.log(terminalLineData);
       Axios.post("/command", { command: terminalInput }).then((res) => {
         // checking result
-        console.log(terminalLineData);
         if (res.data.result) {
           let existingLineCommandData = [
             ...terminalLineData,
@@ -50,8 +48,6 @@ export default function Home() {
             },
           ];
 
-          console.log("ex", existingLineCommandData);
-          // console.log(existingLineCommandData, terminalLineData);
           setTerminalLineData(existingLineCommandData);
         } else {
           let existingLineCommandData = [
