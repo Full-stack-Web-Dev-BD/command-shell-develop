@@ -32,22 +32,40 @@ export default function Home() {
         value: terminalInput,
       });
       setTerminalLineData(existingLineData);
-
+      console.log(terminalLineData);
       Axios.post("/command", { command: terminalInput }).then((res) => {
+        // checking result
+        console.log(terminalLineData);
         if (res.data.result) {
-          let existingLineCommandData = [...terminalLineData];
-          existingLineCommandData.push({
-            type: LineType.Output,
-            value: res.data.result,
-          });
+          let existingLineCommandData = [
+            ...terminalLineData,
+
+            {
+              type: LineType.Input,
+              value: terminalInput,
+            },
+            {
+              type: LineType.Output,
+              value: res.data.result,
+            },
+          ];
+
+          console.log("ex", existingLineCommandData);
+          // console.log(existingLineCommandData, terminalLineData);
           setTerminalLineData(existingLineCommandData);
         } else {
-          let existingLineCommandData = [...terminalLineData];
-          existingLineCommandData.push({
-            type: LineType.Output,
-            value: res.data.error,
-            // value: `'${terminalInput}' is not recognized as an internal or external command,operable program or batch file.`,
-          });
+          let existingLineCommandData = [
+            ...terminalLineData,
+
+            {
+              type: LineType.Input,
+              value: terminalInput,
+            },
+            {
+              type: LineType.Output,
+              value: res.data.error,
+            },
+          ];
           setTerminalLineData(existingLineCommandData);
         }
       });
