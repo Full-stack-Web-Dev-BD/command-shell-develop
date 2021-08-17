@@ -11,6 +11,9 @@ export default function Home() {
       value: "Type 'clear' to clean Shell  .Start here ... ",
     },
   ]);
+  const fileChange = (e) => {
+    console.log(e.target.files[0]);
+  };
   const enterPress = (terminalInput) => {
     if (terminalInput == "") return toast("Enter some command ");
     if (
@@ -72,14 +75,20 @@ export default function Home() {
       <Navbar title=" Dashboard " />
       <div className="container">
         <div className="row mt-5">
-          <div className="container">
+          {/* <div className="container">
             <Terminal
               name=" Custom Application Terminal"
               colorMode={ColorMode.Dark}
               lineData={terminalLineData}
               onInput={(terminalInput) => enterPress(terminalInput)}
             />
-          </div>
+          </div> */}
+          <input
+            type="file"
+            onChange={(e) => {
+              fileChange(e);
+            }}
+          />
         </div>
       </div>
     </>
