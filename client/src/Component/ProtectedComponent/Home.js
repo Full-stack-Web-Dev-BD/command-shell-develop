@@ -3,6 +3,7 @@ import Navbar from "./Navbar";
 import Axios from "axios";
 import Terminal, { ColorMode, LineType } from "react-terminal-ui";
 import { toast } from "react-toastify";
+import { Button } from "@material-ui/core";
 export default function Home() {
   const [terminalLineData, setTerminalLineData] = useState([
     { type: LineType.Output, value: "Welcome to Custom  Terminal " },
@@ -11,8 +12,15 @@ export default function Home() {
       value: "Type 'clear' to clean Shell  .Start here ... ",
     },
   ]);
-  const fileChange = (e) => {
-    console.log(e.target.files[0]);
+  const runPs1 = (e) => {
+    toast.info('Running  Ps1 file from "c:\\cmd\\cmd.ps1"');
+    Axios.get("/process")
+      .then((success) => {
+        toast.success('  Ps1 file run complete  from "c:\\cmd\\cmd.ps1"');
+      })
+      .catch((errr) => {
+        toast.error('Ps1 file run  failed  from "c:\\cmd\\cmd.ps1"');
+      });
   };
   const enterPress = (terminalInput) => {
     if (terminalInput == "") return toast("Enter some command ");
@@ -83,12 +91,9 @@ export default function Home() {
               onInput={(terminalInput) => enterPress(terminalInput)}
             />
           </div> */}
-          <input
-            type="file"
-            onChange={(e) => {
-              fileChange(e);
-            }}
-          />
+          <Button variant="contained" onClick={(e) => runPs1()}>
+            Run Ps1 file from "c:\\cmd\\cmd.ps1"
+          </Button>
         </div>
       </div>
     </>

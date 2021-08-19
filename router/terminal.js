@@ -27,10 +27,12 @@ router.post("/command", (req, res) => {
     res.json(output);
   });
 });
+
 router.get("/process", (req, res) => {
+  let path = "c:\\cmd\\cmd.ps1";
   var spawn = require("child_process").spawn,
     child;
-  child = spawn("powershell.exe", ["c:\\temp\\cmd.ps1"]);
+  child = spawn("powershell.exe", [path]);
   child.stdout.on("data", function (data) {
     console.log("Powershell Data: " + data);
   });
@@ -41,5 +43,6 @@ router.get("/process", (req, res) => {
     console.log("Powershell Script finished");
   });
   child.stdin.end();
+  res.json({ message: `Command run from ${path}` });
 });
 module.exports = router;
