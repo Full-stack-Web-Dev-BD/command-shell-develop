@@ -3,8 +3,13 @@ import Navbar from "./Navbar";
 import Axios from "axios";
 import Terminal, { ColorMode, LineType } from "react-terminal-ui";
 import { toast } from "react-toastify";
-import { Button } from "@material-ui/core";
+import { Button, Card, CardContent } from "@material-ui/core";
 export default function Home() {
+  const [pathList, setPathList] = useState([
+    "c:\\cmd\\cmd.ps1",
+    "c:\\cmd\\cmd1.ps1",
+    "c:\\cmd\\cmd2.ps1",
+  ]);
   const [terminalLineData, setTerminalLineData] = useState([
     { type: LineType.Output, value: "Welcome to Custom  Terminal " },
     {
@@ -91,9 +96,21 @@ export default function Home() {
               onInput={(terminalInput) => enterPress(terminalInput)}
             />
           </div> */}
-          <Button variant="contained" onClick={(e) => runPs1()}>
-            Run Ps1 file from "c:\\cmd\\cmd.ps1"
-          </Button>
+          <div className="col-12">
+            <Card>
+              <CardContent>
+                <h2>Files are running ...</h2>
+                <hr />
+                {pathList.map((el) => {
+                  return <h5> {el} </h5>;
+                })}
+
+                <Button variant="contained" onClick={(e) => runPs1()}>
+                  Execute
+                </Button>
+              </CardContent>
+            </Card>
+          </div>
         </div>
       </div>
     </>
